@@ -4,17 +4,21 @@ import pandas as pd
 import re
 
 # Load the Excel file into a pandas DataFrame
-excel_path = "/Users/conniesun/Documents/pokemon_game/PokemonFinal.xlsx"  # Replace with your Excel file path
+excel_path = "/Users/conniesun/Documents/pokemonboardgame/PokemonFinal.xlsx"  # Replace with your Excel file path
 pokemon_db = pd.read_excel(excel_path)
 
 # Define the paths to the directories containing the images
-backgrounds_path = "/Users/conniesun/Documents/pokemon_game/backgrounds/cropped"
-rings_path = "/Users/conniesun/Documents/pokemon_game/rings"
-pokemons_path = "/Users/conniesun/Documents/pokemon_game/pokemon_resized"
-banners_path = "/Users/conniesun/Documents/pokemon_game/banners"
-symbols_path = "/Users/conniesun/Documents/pokemon_game/symbols"
-attack_strength_path = "/Users/conniesun/Documents/pokemon_game/attack_strengths"
-evolution_path = "/Users/conniesun/Documents/pokemon_game/evolution"
+backgrounds_path = (
+    "/Users/conniesun/Documents/pokemonboardgame/artifacts/backgrounds/cropped"
+)
+rings_path = "/Users/conniesun/Documents/pokemonboardgame/artifacts/rings"
+pokemons_path = "/Users/conniesun/Documents/pokemonboardgame/artifacts/pokemon_resized"
+banners_path = "/Users/conniesun/Documents/pokemonboardgame/artifacts/banners"
+symbols_path = "/Users/conniesun/Documents/pokemonboardgame/artifacts/symbols"
+attack_strength_path = (
+    "/Users/conniesun/Documents/pokemonboardgame/artifacts/attack_strengths"
+)
+evolution_path = "/Users/conniesun/Documents/pokemonboardgame/artifacts/evolution"
 
 
 # Function to extract numbers from a string
@@ -311,7 +315,7 @@ for index, row in pokemon_db.iterrows():
             next_pokemon_image_path = os.path.join(pokemons_path, next_pokemon_file)
 
         # Define the output path for the composite image
-        output_image_path = f"/Users/conniesun/Documents/pokemon_game/output/{pokemon_name}_{backcount}.png"  # Replace with your output directory path
+        output_image_path = f"/Users/conniesun/Documents/pokemonboardgame/output_folders/output/{pokemon_name}_{backcount}.png"  # Replace with your output directory path
 
         # Create the composite image
         if background_file and pokemon_file:
@@ -397,7 +401,7 @@ for index, row in pokemon_db.iterrows():
             catch_numbers = [int(num.strip()) for num in catch_roll.split(",")]
             images = [
                 Image.open(
-                    f"/Users/conniesun/Documents/pokemon_game/die_faces/die_face_{n}.png"
+                    f"/Users/conniesun/Documents/pokemonboardgame/artifacts/die_faces/die_face_{n}.png"
                 )
                 for n in catch_numbers
                 if n
