@@ -17,9 +17,7 @@ def delete_files_in_directory(directory_path):
 
 # Paths to your folders
 folder_A = "/Users/conniesun/Documents/pokemonboardgame/output_folders/output/"
-folder_B = (
-    "/Users/conniesun/Documents/pokemonboardgame/output_folders/deleted_pokemons2/"
-)
+folder_B = "/Users/conniesun/Documents/pokemonboardgame/deleted_pokemons2/"
 folder_C = "/Users/conniesun/Documents/pokemonboardgame/output_folders/output_trimmed"
 
 # Ensure folder C exists

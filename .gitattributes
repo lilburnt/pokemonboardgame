@@ -1,0 +1,2 @@
+deleted_pokemons2/** filter=lfs diff=lfs merge=lfs -text
+artifacts/pokemon_resized/** filter=lfs diff=lfs merge=lfs -text
