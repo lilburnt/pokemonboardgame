@@ -1,6 +1,7 @@
 import pandas as pd
 from PIL import Image
 
+
 def create_composite_image(numbers, image_folder):
     images = [Image.open(f"{image_folder}/die_faces_{n}.png") for n in numbers if n]
     if not images:
@@ -20,26 +21,30 @@ def create_composite_image(numbers, image_folder):
 
     return composite_image
 
+
 def process_excel_file(file_path, image_folder, output_folder):
     df = pd.read_excel(file_path)
     for index, row in df.iterrows():
-        catch_roll = row['How to Catch']
+        catch_roll = row["How to Catch"]
         if not isinstance(catch_roll, str):
             # no catch roll needed
             print("no catch roll needed")
-        elif 'Trade:' in catch_roll:
-            # test
-        elif (',' in catch_roll) or isinstance(catch_roll, int):
-            numbers = catch_roll.split(',') if catch_roll else []  # Replace 'Column Name' with your column name
+        elif "Trade:" in catch_roll:
+            # handle trade case
+            print("Trade case detected")
+        elif ("," in catch_roll) or isinstance(catch_roll, int):
+            numbers = (
+                catch_roll.split(",") if catch_roll else []
+            )  # Replace 'Column Name' with your column name
             composite_image = create_composite_image(numbers, image_folder)
-            composite_image.save(f"{output_folder}/composite_row_{index}.png")
         else:
-            
+            # handle other cases
+            print("Other case detected")
 
 
 # Parameters
-excel_file_path = '/Users/conniesun/Documents/pokemon_game/PokemonFinal.xlsx'  # Update with your Excel file path
-image_folder = '/Users/conniesun/Documents/pokemon_game/die_faces'    # Update with your images folder path
-output_folder = '/Users/conniesun/Documents/pokemon_game/die_faces/temp_die'      # Update with your desired output folder path
+excel_file_path = "/Users/conniesun/Documents/pokemon_game/PokemonFinal.xlsx"  # Update with your Excel file path
+image_folder = "/Users/conniesun/Documents/pokemon_game/die_faces"  # Update with your images folder path
+output_folder = "/Users/conniesun/Documents/pokemon_game/die_faces/temp_die"  # Update with your desired output folder path
 
 process_excel_file(excel_file_path, image_folder, output_folder)
