@@ -1,3 +1,4 @@
+import pandas as pd
 from PIL import Image
 import math
 import os
@@ -22,10 +23,21 @@ images_down = A4_HEIGHT // (IMAGE_SIZE + BUFFER_PIXEL) - 1
 
 
 # Path to the directory containing images (replace with your actual folder path)
-image_folder_path = "/Users/conniesun/Documents/pokemonboardgame/output_folders/output/"
+image_folder_path = "/Users/conniesun/Documents/pokemonboardgame/output/"
 
-# List all the image files in the directory
-image_files = [f for f in os.listdir(image_folder_path) if f.endswith(".png")]
+# Load the Excel file into a pandas DataFrame
+excel_path = "/Users/conniesun/Documents/pokemonboardgame/PokemonFinal.xlsx"  # Replace with your Excel file path
+pokemon_db = pd.read_excel(excel_path)
+
+# Filter out the rows where the 'Print' column (or the relevant column) is set to False (or 0)
+# Assume the column is called 'Print'
+filtered_pokemon_db = pokemon_db[pokemon_db["Print"] == True]
+
+# List all the image files in the directory and keep only those that should be printed
+image_files = [f for f in filtered_pokemon_db["Pokemon"].tolist()]
+
+# # List all the image files in the directory
+# image_files = [f for f in os.listdir(image_folder_path) if f.endswith(".png")]
 
 # Calculate total number of pages needed
 total_images = len(image_files)
@@ -51,8 +63,10 @@ def create_print_page(page_number, image_files, images_per_page):
 
         # Check if we still have images left to print
         if start_index + i < total_images:
-            image_path = os.path.join(image_folder_path, image_files[start_index + i])
-            image = Image.open(image_path)
+            image_path = os.path.join(
+                image_folder_path, image_files[start_index + i] + ".png"
+            )
+            image = Image.open(image_path.strip().lower())
 
             # Check if the image has an alpha channel
             if image.mode in ("RGBA", "LA") or (

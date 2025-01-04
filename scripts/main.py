@@ -315,7 +315,7 @@ for index, row in pokemon_db.iterrows():
             next_pokemon_image_path = os.path.join(pokemons_path, next_pokemon_file)
 
         # Define the output path for the composite image
-        output_image_path = f"/Users/conniesun/Documents/pokemonboardgame/output_folders/output/{pokemon_name}_{backcount}.png"  # Replace with your output directory path
+        output_image_path = f"/Users/conniesun/Documents/pokemonboardgame/output/{pokemon_name}_{backcount}.png"  # Replace with your output directory path
 
         # Create the composite image
         if background_file and pokemon_file:

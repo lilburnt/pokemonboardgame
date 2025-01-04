@@ -5,7 +5,7 @@ import re
 
 # Define the paths to the directories containing the images
 backside_path = "/Users/conniesun/Documents/pokemonboardgame/artifacts/backside/edited"
-pokemon_path = "/Users/conniesun/Documents/pokemonboardgame/output_folders/output"
+pokemon_path = "/Users/conniesun/Documents/pokemonboardgame/output"
 
 # Define the output path of the this
 final_path = "/Users/conniesun/Documents/pokemonboardgame/output_folders/final"

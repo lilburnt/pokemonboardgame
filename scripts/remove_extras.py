@@ -16,10 +16,11 @@ def delete_files_in_directory(directory_path):
 
 
 # Paths to your folders
-folder_A = "/Users/conniesun/Documents/pokemonboardgame/output_folders/output/"
+folder_A = "/Users/conniesun/Documents/pokemonboardgame/output/"
 folder_B = "/Users/conniesun/Documents/pokemonboardgame/deleted_pokemons2/"
 folder_C = "/Users/conniesun/Documents/pokemonboardgame/output_folders/output_trimmed"
 
+# clear all of output_trimmed folder
 # Ensure folder C exists
 if not os.path.exists(folder_C):
     os.makedirs(folder_C)

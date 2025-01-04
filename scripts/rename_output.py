@@ -1,7 +1,7 @@
 import os
 
 # Set the directory where your files are located
-directory = "/Users/conniesun/Documents/pokemonboardgame/output_folders/output"
+directory = "/Users/conniesun/Documents/pokemonboardgame/output"
 
 # Loop through all the files in the directory
 for filename in os.listdir(directory):
