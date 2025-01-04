@@ -2,5 +2,4 @@ output_folders/
 output/
 **/*.zip
 **/*.tar.gz
-**/*.xlsx
 **/.DS_Store
