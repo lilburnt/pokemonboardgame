@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Upload Pokemon Excel File</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 400px;
+      }
+      h1 {
+        color: #333;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      input[type="file"] {
+        margin: 20px 0;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      .message {
+        margin-top: 20px;
+        color: #333;
+      }
+      .debug-info {
+        margin-top: 20px;
+        background-color: #e9ecef;
+        padding: 10px;
+        border-radius: 4px;
+        width: 80%;
+        max-width: 800px;
+        text-align: left;
+        font-family: monospace;
+        overflow-y: auto;
+        max-height: 200px;
+      }
+      .debug-info pre {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>gotta catch them all</h1>
+      <img src="Mewtwo.png" alt="Mewtwo" style="width: 100%; border-radius: 8px;">
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput" required>
+        <input type="submit" value="Upload">
+      </form>
+      <div class="message" id="message"></div>
+    </div>
+    <div class="debug-info" id="debugInfo">
+      <h2>🐞 → 🚀</h2>
+      <pre id="debugOutput"></pre>
+    </div>
+
+    <script>
+      document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+        const messageDiv = document.getElementById('message');
+        const debugOutput = document.getElementById('debugOutput');
+
+        if (file) {
+          debugOutput.textContent = 'File uploaded successfully. Processing...';
+          const formData = new FormData();
+          formData.append('file', file);
+
+          const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+          });
+
+          const result = await response.json();
+          if (response.ok) {
+            messageDiv.textContent = result.message;
+            debugOutput.textContent = 'New pokemon chips generated!';
+          } else {
+            messageDiv.textContent = result.error;
+            debugOutput.textContent = 'Error: ' + result.error;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
