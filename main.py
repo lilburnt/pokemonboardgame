@@ -3,7 +3,7 @@ import os
 from werkzeug.utils import secure_filename
 from process import process_excel_file
 
-UPLOAD_FOLDER = "/path/to/upload"
+UPLOAD_FOLDER = os.path.dirname(__file__)
 ALLOWED_EXTENSIONS = {"xlsx"}
 
 app = Flask(__name__)
