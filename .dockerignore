@@ -1,2 +1,4 @@
-output
-output_folders
+artifacts # These are invariant elements that make up the output images
+deleted_pokens2 # This is an invariant list of pokemon in the form of images - TODO: make this a text list and simplify the process
+output # This is generated during the build process
+output_folders # This is generated during the build process
