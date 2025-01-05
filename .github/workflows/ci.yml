@@ -1,0 +1,38 @@
+name: CI Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      file:
+        description: 'File to process'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    - name: Build Docker image
+      run: docker build -t pokemon_microservice .
+
+    - name: Run Docker container
+      run: docker run -v ${{ github.workspace }}/artifacts:/app/artifacts pokemon_microservice
+
+    - name: Upload to Google Drive
+      run: |
+        # Your script to upload the result to Google Drive
+        python upload_to_drive.py
