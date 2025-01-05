@@ -31,8 +31,8 @@
         flex-direction: column;
         align-items: center;
       }
-      input[type="file"] {
-        margin: 20px 0;
+      input[type="file"], input[type="password"] {
+        margin: 10px 0;
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
@@ -76,6 +76,7 @@
       <h1>gotta catch them all</h1>
       <img src="Mewtwo.png" alt="Mewtwo" style="width: 100%; border-radius: 8px;">
       <form id="uploadForm" enctype="multipart/form-data">
+        <input type="password" name="psst" id="passcodeInput" placeholder="Enter passcode" required>
         <input type="file" name="file" id="fileInput" required>
         <input type="submit" value="Upload">
       </form>
@@ -89,13 +90,20 @@
     <script>
       document.getElementById('uploadForm').addEventListener('submit', async function(event) {
         event.preventDefault();
+        const passcodeInput = document.getElementById('passcodeInput');
         const fileInput = document.getElementById('fileInput');
+        const passcode = passcodeInput.value;
         const file = fileInput.files[0];
         const messageDiv = document.getElementById('message');
         const debugOutput = document.getElementById('debugOutput');
 
+        if (passcode !== 'bear<3sunflower') {
+          messageDiv.textContent = 'Invalid passcode.';
+          debugOutput.textContent = 'Error: Invalid passcode.';
+          return;
+        }
+
         if (file) {
-          debugOutput.textContent = 'File uploaded successfully. Processing...';
           const formData = new FormData();
           formData.append('file', file);
 
@@ -107,7 +115,7 @@
           const result = await response.json();
           if (response.ok) {
             messageDiv.textContent = result.message;
-            debugOutput.textContent = 'New pokemon chips generated!';
+            debugOutput.textContent = 'File uploaded successfully. Processing...';
           } else {
             messageDiv.textContent = result.error;
             debugOutput.textContent = 'Error: ' + result.error;
