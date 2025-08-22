@@ -1,24 +1,23 @@
-import os
 from PIL import Image, ImageDraw, ImageFont
+import os
 import pandas as pd
 import re
 
+# Get the current working directory
+current_directory = os.getcwd() 
+
 # Load the Excel file into a pandas DataFrame
-excel_path = "/Users/conniesun/Documents/pokemonboardgame/PokemonFinal.xlsx"  # Replace with your Excel file path
+excel_path = os.path.join(current_directory, "PokemonFinal.xlsx")
 pokemon_db = pd.read_excel(excel_path)
 
 # Define the paths to the directories containing the images
-backgrounds_path = (
-    "/Users/conniesun/Documents/pokemonboardgame/artifacts/backgrounds/cropped"
-)
-rings_path = "/Users/conniesun/Documents/pokemonboardgame/artifacts/rings"
-pokemons_path = "/Users/conniesun/Documents/pokemonboardgame/artifacts/pokemon_resized"
-banners_path = "/Users/conniesun/Documents/pokemonboardgame/artifacts/banners"
-symbols_path = "/Users/conniesun/Documents/pokemonboardgame/artifacts/symbols"
-attack_strength_path = (
-    "/Users/conniesun/Documents/pokemonboardgame/artifacts/attack_strengths"
-)
-evolution_path = "/Users/conniesun/Documents/pokemonboardgame/artifacts/evolution"
+backgrounds_path = os.path.join(current_directory, "artifacts/backgrounds/cropped")
+rings_path = os.path.join(current_directory, "artifacts/rings")
+pokemons_path = os.path.join(current_directory, "artifacts/pokemon_resized")
+banners_path = os.path.join(current_directory, "artifacts/banners")
+symbols_path = os.path.join(current_directory, "artifacts/symbols")
+attack_strength_path = os.path.join(current_directory, "artifacts/attack_strengths")
+evolution_path = os.path.join(current_directory, "artifacts/evolution")
 
 
 # Function to extract numbers from a string
@@ -339,20 +338,6 @@ for index, row in pokemon_db.iterrows():
         image = Image.open(output_image_path)
         image_width, image_height = image.size
         draw = ImageDraw.Draw(image)
-        red_text = [
-            "Freeze",
-            "Constrict",
-            "Burn",
-            "Armored",
-            "Rage",
-            "Toxic",
-            "Critical",
-            "Recover",
-            "Blitz",
-            "Intimidate",
-            "Quick Attack",
-            "One-Hit KO",
-        ]
         if (special_ability_1 != "none") and (special_ability_2 != "none"):
             # Calculate text size and position
             text_width1 = draw.textlength(special_ability_1, font=font)
@@ -361,11 +346,7 @@ for index, row in pokemon_db.iterrows():
             total_width = text_width1 + text_width2 + middle_width
 
             position1 = ((image_width - total_width) / 2, 425)
-            text_color = (
-                (139, 0, 0)
-                if any(keyword in special_ability_1 for keyword in red_text)
-                else (22, 22, 29)
-            )
+            text_color = (22, 22, 29)
             draw.text(position1, special_ability_1, font=font, fill=text_color)
 
             position2 = ((image_width - total_width) / 2 + text_width1, 425)
@@ -375,21 +356,13 @@ for index, row in pokemon_db.iterrows():
                 (image_width - total_width) / 2 + text_width1 + middle_width,
                 425,
             )
-            text_color = (
-                (139, 0, 0)
-                if any(keyword in special_ability_2 for keyword in red_text)
-                else (22, 22, 29)
-            )
+            text_color = (22, 22, 29)
             draw.text(position3, special_ability_2, font=font, fill=text_color)
         elif special_ability_1 != "none":
             # Calculate text size and position
             text_width = draw.textlength(special_ability_1, font=font)
             position = ((image_width - text_width) / 2, 425)
-            text_color = (
-                (139, 0, 0)
-                if any(keyword in special_ability_1 for keyword in red_text)
-                else (22, 22, 29)
-            )
+            text_color = (22, 22, 29)
             draw.text(position, special_ability_1, font=font, fill=text_color)
 
         # Add catch roll
